@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>SŠ Kostka - OBJEDNÁVKY BUFET</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f0f2f5;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.box{
+background:white;
+padding:30px;
+width:400px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+h1{
+text-align:center;
+font-size:24px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:8px;
+box-sizing:border-box;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:15px 0;
+}
+
+.controls button{
+width:30px;
+height:30px;
+}
+
+.controls span{
+margin:0 10px;
+font-size:18px;
+}
+
+.total{
+font-size:22px;
+font-weight:bold;
+text-align:center;
+margin-top:20px;
+}
+
+.send{
+width:100%;
+padding:15px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+margin-top:20px;
+}
+
+.send:hover{
+opacity:0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h1>SŠ Kostka - OBJEDNÁVKY BUFET</h1>
+
+<input type="text" id="name" placeholder="Jméno a příjmení">
+<input type="text" id="phone" placeholder="+420 ...">
+
+<div class="item">
+<div>SENDVIČ (45 Kč)</div>
+<div class="controls">
+<button onclick="change('sendvic',-1)">-</button>
+<span id="sendvic">0</span>
+<button onclick="change('sendvic',1)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>PÁREK V ROHLÍKU (35 Kč)</div>
+<div class="controls">
+<button onclick="change('parek',-1)">-</button>
+<span id="parek">0</span>
+<button onclick="change('parek',1)">+</button>
+</div>
+</div>
+
+<div class="item">
+<div>JABLKO (15 Kč)</div>
+<div class="controls">
+<button onclick="change('jablko',-1)">-</button>
+<span id="jablko">0</span>
+<button onclick="change('jablko',1)">+</button>
+</div>
+</div>
+
+<div class="total">
+Celková cena: <span id="total">0</span> Kč
+</div>
+
+<button class="send" onclick="sendOrder()">
+ODESLAT OBJEDNÁVKU
+</button>
+
+</div>
+
+<script>
+function change(id,value){
+let el=document.getElementById(id);
+let num=parseInt(el.innerText);
+
+num+=value;
+
+if(num<0) num=0;
+
+el.innerText=num;
+calculate();
+}
+
+function calculate(){
+
+let total=
+parseInt(document.getElementById("sendvic").innerText)*45+
+parseInt(document.getElementById("parek").innerText)*35+
+parseInt(document.getElementById("jablko").innerText)*15;
+
+document.getElementById("total").innerText=total;
+}
+
+function sendOrder(){
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+
+if(name==="" || phone===""){
+alert("Vyplň jméno a telefon");
+return;
+}
+
+alert(
+"Objednávka odeslána\n\n"+
+"Jméno: "+name+"\n"+
+"Telefon: "+phone+"\n"+
+"Celkem: "+document.getElementById("total").innerText+" Kč"
+);
+
+location.reload();
+}
+</script>
+
+</body>
+</html>
